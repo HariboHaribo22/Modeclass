@@ -13,6 +13,7 @@
             --border: #222222;
             --hover: #111111;
             --card: #0a0a0a;
+            --verified: #4da6ff;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -66,11 +67,9 @@
             letter-spacing: 1px;
         }
 
-        .search:focus {
-            border-color: var(--text);
-        }
+        .search:focus { border-color: var(--text); }
 
-        /* НАВИГАЦИЯ (ГОРИЗОНТАЛЬНАЯ ПРОКРУТКА) */
+        /* НАВИГАЦИЯ */
         nav {
             display: flex;
             gap: 8px;
@@ -94,6 +93,7 @@
             text-decoration: none;
             transition: all 0.15s ease;
             white-space: nowrap;
+            cursor: pointer;
         }
 
         .nav-btn:hover, .nav-btn.active {
@@ -123,6 +123,7 @@
         .section-title span {
             color: var(--text);
             font-size: 0.7rem;
+            cursor: pointer;
         }
 
         /* КАРТОЧКИ МОДОВ */
@@ -141,9 +142,7 @@
             cursor: pointer;
         }
 
-        .mod-card:hover {
-            border-color: var(--text);
-        }
+        .mod-card:hover { border-color: var(--text); }
 
         .mod-header {
             display: flex;
@@ -168,6 +167,23 @@
             font-size: 0.75rem;
             color: var(--muted);
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .verified-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 14px;
+            height: 14px;
+            background: var(--verified);
+            color: #000;
+            font-size: 10px;
+            font-weight: bold;
+            border-radius: 50%;
+            line-height: 1;
         }
 
         .mod-stats {
@@ -224,6 +240,41 @@
             color: var(--muted);
             text-decoration: underline;
         }
+
+        /* СТРАНИЦЫ-ЗАГЛУШКИ */
+        .page {
+            display: none;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .page.active { display: block; }
+
+        .page h2 {
+            font-size: 1rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            color: var(--muted);
+        }
+
+        .page p {
+            font-size: 0.9rem;
+            color: var(--muted);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .page a.back {
+            display: inline-block;
+            margin-top: 20px;
+            color: var(--text);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            text-decoration: underline;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -239,18 +290,16 @@
 
     <!-- НАВИГАЦИЯ -->
     <nav>
-        <a href="#" class="nav-btn active">Моды</a>
-        <a href="#" class="nav-btn">Скачанные</a>
-        <a href="#" class="nav-btn">Новости</a>
-        <a href="#" class="nav-btn">Важное</a>
-        <a href="#" class="nav-btn">Опубликовать</a>
-        <a href="#" class="nav-btn">Поддержка</a>
+        <button class="nav-btn active" onclick="showPage('mods')">Моды</button>
+        <button class="nav-btn" onclick="showPage('downloaded')">Скачанные</button>
+        <button class="nav-btn" onclick="showPage('news')">Новости</button>
+        <button class="nav-btn" onclick="showPage('rules')">Важное</button>
+        <button class="nav-btn" onclick="showPage('publish')">Опубликовать</button>
+        <button class="nav-btn" onclick="showPage('support')">Поддержка</button>
     </nav>
 
-    <!-- КОНТЕНТ -->
-    <main>
-
-        <!-- МОДЫ -->
+    <!-- СТРАНИЦА: МОДЫ -->
+    <main id="page-mods" class="page active">
         <div class="section-title">
             Топ модов <span>Все →</span>
         </div>
@@ -262,7 +311,9 @@
                     <div class="mod-name">Чебуреки V2.3</div>
                     <div class="mod-version">v2.3</div>
                 </div>
-                <div class="mod-author">By Barbossoro4</div>
+                <div class="mod-author">
+                    By fallenout <span class="verified-badge">✓</span>
+                </div>
                 <div class="mod-stats">
                     <span>⭐ 4.9</span>
                     <span>⬇ 1,247</span>
@@ -278,7 +329,9 @@
                     <div class="mod-name">Тёмный интерфейс</div>
                     <div class="mod-version">v1.4</div>
                 </div>
-                <div class="mod-author">By iahssha223</div>
+                <div class="mod-author">
+                    By fallenout <span class="verified-badge">✓</span>
+                </div>
                 <div class="mod-stats">
                     <span>⭐ 4.8</span>
                     <span>⬇ 3,891</span>
@@ -294,7 +347,9 @@
                     <div class="mod-name">Матрица</div>
                     <div class="mod-version">v1.0</div>
                 </div>
-                <div class="mod-author">By neo_iz_sela</div>
+                <div class="mod-author">
+                    By fallenout <span class="verified-badge">✓</span>
+                </div>
                 <div class="mod-stats">
                     <span>⭐ 4.7</span>
                     <span>⬇ 892</span>
@@ -307,7 +362,6 @@
 
         </div>
 
-        <!-- НОВОСТИ -->
         <div class="section-title">
             Новости <span>Все →</span>
         </div>
@@ -322,24 +376,88 @@
                 Чебуреки V2.4 — в разработке. Ждём кетчуп.
             </div>
         </div>
-
     </main>
+
+    <!-- СТРАНИЦА: СКАЧАННЫЕ -->
+    <div id="page-downloaded" class="page">
+        <h2>Скачанные</h2>
+        <p>Тут будут моды, которые ты установил. Пока пусто.</p>
+        <p>Установи первый мод — и он появится здесь.</p>
+        <span class="back" onclick="showPage('mods')">← Назад к модам</span>
+    </div>
+
+    <!-- СТРАНИЦА: НОВОСТИ -->
+    <div id="page-news" class="page">
+        <h2>Новости</h2>
+        <p><strong>12.09.2026</strong> — ModeClass запущен. Добро пожаловать.</p>
+        <p><strong>10.09.2026</strong> — Чебуреки V2.4 в разработке.</p>
+        <p><strong>08.09.2026</strong> — fallenout получил значок «Проверенный автор».</p>
+        <span class="back" onclick="showPage('mods')">← Назад к модам</span>
+    </div>
+
+    <!-- СТРАНИЦА: ВАЖНОЕ -->
+    <div id="page-rules" class="page">
+        <h2>Важное</h2>
+        <p><strong>1.</strong> Моды не имеют права просить у вас пароль, API или доступ к аккаунту.</p>
+        <p><strong>2.</strong> Запрещён контент 18+.</p>
+        <p><strong>3.</strong> ModeClass не связан с Bilimclass. Мы — площадка.</p>
+        <p><strong>4.</strong> Устанавливайте моды на свой страх и риск.</p>
+        <p><strong>5.</strong> Мы не несём ответственности за ваши аккаунты.</p>
+        <span class="back" onclick="showPage('mods')">← Назад к модам</span>
+    </div>
+
+    <!-- СТРАНИЦА: ОПУБЛИКОВАТЬ -->
+    <div id="page-publish" class="page">
+        <h2>Опубликовать</h2>
+        <p>Тут будет форма для загрузки мода.</p>
+        <p>Пока в разработке. Но скоро ты сможешь загрузить свой первый мод.</p>
+        <span class="back" onclick="showPage('mods')">← Назад к модам</span>
+    </div>
+
+    <!-- СТРАНИЦА: ПОДДЕРЖКА -->
+    <div id="page-support" class="page">
+        <h2>Поддержка</h2>
+        <p>Если что-то не работает — напиши нам.</p>
+        <p>Discord: (скоро)</p>
+        <p>Telegram: (скоро)</p>
+        <span class="back" onclick="showPage('mods')">← Назад к модам</span>
+    </div>
 
     <!-- ПОДВАЛ -->
     <footer>
         ModeClass не связан с Bilimclass.<br>
         Моды создаются сообществом. Устанавливайте на свой страх и риск.<br><br>
-        <a href="#">Правила</a> · <a href="#">Поддержка</a> · <a href="#">GitHub</a>
+        <a onclick="showPage('rules')" style="cursor:pointer;">Правила</a> · 
+        <a onclick="showPage('support')" style="cursor:pointer;">Поддержка</a> · 
+        <a href="https://github.com" target="_blank">GitHub</a>
     </footer>
 
-    <!-- ПОИСК (визуальный фильтр) -->
+    <!-- СКРИПТЫ -->
     <script>
+        // ПЕРЕКЛЮЧЕНИЕ СТРАНИЦ
+        function showPage(pageId) {
+            // Скрыть все страницы
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            
+            // Показать нужную
+            const target = document.getElementById('page-' + pageId);
+            if (target) target.classList.add('active');
+            
+            // Обновить активную кнопку
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Скролл наверх
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ПОИСК
         const searchInput = document.getElementById('searchInput');
         const modsGrid = document.getElementById('modsGrid');
-        const cards = modsGrid.querySelectorAll('.mod-card');
 
         searchInput.addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase();
+            const cards = modsGrid.querySelectorAll('.mod-card');
             cards.forEach(card => {
                 const text = card.textContent.toLowerCase();
                 card.style.display = text.includes(query) ? 'block' : 'none';
@@ -348,4 +466,4 @@
     </script>
 
 </body>
-  </html>
+</html>
