@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModeClass — сделай учёбу своей</title>
+    <style>
+        :root {
+            color-scheme: dark;
+            --bg: #000000;
+            --text: #ffffff;
+            --muted: #888888;
+            --border: #222222;
+            --hover: #111111;
+            --card: #0a0a0a;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, Roboto, Ubuntu, Tahoma, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+            padding-bottom: 40px;
+        }
+
+        /* ШАПКА */
+        header {
+            position: sticky;
+            top: 0;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
+            padding: 16px 20px;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .logo {
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            font-weight: 400;
+            text-transform: uppercase;
+        }
+
+        .search {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            font-size: 0.9rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .search::placeholder {
+            color: var(--muted);
+            letter-spacing: 1px;
+        }
+
+        .search:focus {
+            border-color: var(--text);
+        }
+
+        /* НАВИГАЦИЯ (ГОРИЗОНТАЛЬНАЯ ПРОКРУТКА) */
+        nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 14px 20px;
+            border-bottom: 1px solid var(--border);
+            scrollbar-width: none;
+        }
+
+        nav::-webkit-scrollbar { display: none; }
+
+        .nav-btn {
+            flex-shrink: 0;
+            padding: 10px 18px;
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-size: 0.75rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.15s ease;
+            white-space: nowrap;
+        }
+
+        .nav-btn:hover, .nav-btn.active {
+            background: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+
+        /* КОНТЕНТ */
+        main {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 0.75rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-title span {
+            color: var(--text);
+            font-size: 0.7rem;
+        }
+
+        /* КАРТОЧКИ МОДОВ */
+        .mods-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .mod-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 16px;
+            transition: border-color 0.15s ease;
+            cursor: pointer;
+        }
+
+        .mod-card:hover {
+            border-color: var(--text);
+        }
+
+        .mod-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .mod-name {
+            font-size: 1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+
+        .mod-version {
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 1px;
+        }
+
+        .mod-author {
+            font-size: 0.75rem;
+            color: var(--muted);
+            margin-bottom: 10px;
+        }
+
+        .mod-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.7rem;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+        }
+
+        .mod-desc {
+            font-size: 0.8rem;
+            color: var(--muted);
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+            line-height: 1.5;
+        }
+
+        /* НОВОСТИ */
+        .news-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+
+        .news-item {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.85rem;
+        }
+
+        .news-date {
+            font-size: 0.65rem;
+            color: var(--muted);
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        /* ПОДВАЛ */
+        footer {
+            padding: 40px 20px 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.65rem;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        footer a {
+            color: var(--muted);
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ШАПКА -->
+    <header>
+        <div class="header-top">
+            <div class="logo">MODECLASS</div>
+            <div style="font-size:0.7rem; color:var(--muted); letter-spacing:1px;">BETA</div>
+        </div>
+        <input type="text" class="search" placeholder="ПОИСК МОДА..." id="searchInput">
+    </header>
+
+    <!-- НАВИГАЦИЯ -->
+    <nav>
+        <a href="#" class="nav-btn active">Моды</a>
+        <a href="#" class="nav-btn">Скачанные</a>
+        <a href="#" class="nav-btn">Новости</a>
+        <a href="#" class="nav-btn">Важное</a>
+        <a href="#" class="nav-btn">Опубликовать</a>
+        <a href="#" class="nav-btn">Поддержка</a>
+    </nav>
+
+    <!-- КОНТЕНТ -->
+    <main>
+
+        <!-- МОДЫ -->
+        <div class="section-title">
+            Топ модов <span>Все →</span>
+        </div>
+
+        <div class="mods-grid" id="modsGrid">
+
+            <div class="mod-card">
+                <div class="mod-header">
+                    <div class="mod-name">Чебуреки V2.3</div>
+                    <div class="mod-version">v2.3</div>
+                </div>
+                <div class="mod-author">By Barbossoro4</div>
+                <div class="mod-stats">
+                    <span>⭐ 4.9</span>
+                    <span>⬇ 1,247</span>
+                    <span>🗓 2 дня</span>
+                </div>
+                <div class="mod-desc">
+                    Заменил все кнопки на чебуреки. Версия 2.3: добавлена сметана при нажатии.
+                </div>
+            </div>
+
+            <div class="mod-card">
+                <div class="mod-header">
+                    <div class="mod-name">Тёмный интерфейс</div>
+                    <div class="mod-version">v1.4</div>
+                </div>
+                <div class="mod-author">By iahssha223</div>
+                <div class="mod-stats">
+                    <span>⭐ 4.8</span>
+                    <span>⬇ 3,891</span>
+                    <span>🗓 1 нед.</span>
+                </div>
+                <div class="mod-desc">
+                    Глаза больше не горят. Монохромный интерфейс для ночной учёбы.
+                </div>
+            </div>
+
+            <div class="mod-card">
+                <div class="mod-header">
+                    <div class="mod-name">Матрица</div>
+                    <div class="mod-version">v1.0</div>
+                </div>
+                <div class="mod-author">By neo_iz_sela</div>
+                <div class="mod-stats">
+                    <span>⭐ 4.7</span>
+                    <span>⬇ 892</span>
+                    <span>🗓 3 дня</span>
+                </div>
+                <div class="mod-desc">
+                    Цифровой дождь на фоне. Учителя в шоке.
+                </div>
+            </div>
+
+        </div>
+
+        <!-- НОВОСТИ -->
+        <div class="section-title">
+            Новости <span>Все →</span>
+        </div>
+
+        <div class="news-list">
+            <div class="news-item">
+                <div class="news-date">12.09.2026</div>
+                ModeClass запущен. Добро пожаловать.
+            </div>
+            <div class="news-item">
+                <div class="news-date">10.09.2026</div>
+                Чебуреки V2.4 — в разработке. Ждём кетчуп.
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ПОДВАЛ -->
+    <footer>
+        ModeClass не связан с Bilimclass.<br>
+        Моды создаются сообществом. Устанавливайте на свой страх и риск.<br><br>
+        <a href="#">Правила</a> · <a href="#">Поддержка</a> · <a href="#">GitHub</a>
+    </footer>
+
+    <!-- ПОИСК (визуальный фильтр) -->
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const modsGrid = document.getElementById('modsGrid');
+        const cards = modsGrid.querySelectorAll('.mod-card');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                card.style.display = text.includes(query) ? 'block' : 'none';
+            });
+        });
+    </script>
+
+</body>
+  </html>
