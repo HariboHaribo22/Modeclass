@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "name": "ModeClass: Dark Theme",
+  "version": "1.0",
+  "description": "Тёмный интерфейс для Bilimclass. От fallenout.",
+  "permissions": ["storage"],
+  "content_scripts": [
+    {
+      "matches": ["https://bilimclass.kz/*", "https://*.bilimclass.kz/*"],
+      "css": ["content.css"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "action": {
+    "default_title": "ModeClass"
+  },
+  "icons": {
+    "128": "icon.png"
+  }
+}
