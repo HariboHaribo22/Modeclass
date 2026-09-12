@@ -1,0 +1,35 @@
+/* MODECLASS DARK THEME */
+/* Тёмный интерфейс для Bilimclass. By fallenout. */
+
+html {
+    filter: invert(1) hue-rotate(180deg) !important;
+    background: #0a0a0a !important;
+}
+
+/* Инвертируем картинки обратно, чтобы они не были "негативом" */
+img, video, svg, iframe, [style*="background-image"] {
+    filter: invert(1) hue-rotate(180deg) !important;
+}
+
+/* Убираем белые полосы и делаем фон чёрным */
+body, div, section, main, header, footer, nav, aside, article {
+    background-color: #0a0a0a !important;
+    color: #e0e0e0 !important;
+}
+
+/* Кнопки и ссылки — делаем заметными */
+a, button, input, select, textarea {
+    color: #ffffff !important;
+    background-color: #1a1a1a !important;
+    border-color: #333333 !important;
+}
+
+/* Скроллбар в тёмных тонах */
+::-webkit-scrollbar {
+    width: 8px;
+    background: #0a0a0a;
+}
+::-webkit-scrollbar-thumb {
+    background: #333333;
+    border-radius: 4px;
+}
